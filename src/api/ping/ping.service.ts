@@ -41,7 +41,7 @@ export class PingService {
     private async ping(host: string, count: number): Promise<PingDto> {
         try {
             const {stdout} = await execa('ping', [host, '-A', `-c${count}`]) as {stdout: string};
-            const { min, avg, max } = stdout.match(/min.*?=\s*(?<min>.+?)\/(?<avg>.+?)\/(?<max>.+?)\/(?<dev>.+?)\s/).groups;
+            const { min, avg, max } = stdout.match(/min.*?=\s*(?<min>.+?)\/(?<avg>.+?)\/(?<max>.+?)(\s|\/)/).groups;
             const { loss } = stdout.match(/(?<loss>\d+(,\d+)?)%/).groups;
             debug(`pinged ${host} ${count} times, got ${loss}% loss and ${avg}ms on average`);
     

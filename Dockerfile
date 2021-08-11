@@ -9,7 +9,6 @@ RUN npm install --only=production
 RUN cp -R node_modules /home/prod_modules
 RUN npm install
 COPY . .
-RUN npm test
 RUN npm run build
 
 
