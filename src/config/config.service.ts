@@ -34,6 +34,17 @@ export class ConfigProvider {
         return this.get(key).toLowerCase() === 'true';
     }
 
+    getArray(key: string): string[] {
+        const value = this.get(key);
+        const obj = this.optionalParse(value);
+
+        if (!Array.isArray(obj)) {
+            throw new TypeError(`The config ${key} isn't a valid JSON array`);
+        }
+
+        return obj;
+    }
+
     private getOptional(key: string): string | undefined {
         return this.config[key];
     }
@@ -50,6 +61,13 @@ export class ConfigProvider {
         fs.copyFileSync(defaultConfigPath, configPath);
     }
 
+    private optionalParse(str: string): any {
+        try {
+            return JSON.parse(str);
+        } catch (e) {
+            return null;
+        }
+    }
 }
 
 export const configProvider = new ConfigProvider(CONFIG_PATH, DEFAULT_CONFIG_PATH);

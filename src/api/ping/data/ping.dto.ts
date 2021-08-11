@@ -30,4 +30,8 @@ export class PingDto {
     static of(count: number, host:string,  min: string, avg: string, max: string, loss: string): PingDto {
         return new PingDto(count, host, Number(min), Number(avg), Number(max), Number(loss));
     }
+    
+    static ofError(count: number, host: string): PingDto {
+        return new PingDto(count, host, NaN, NaN, NaN, 100);
+    }
 }

@@ -1,3 +1,4 @@
+import * as Boom from "@hapi/boom";
 import {Service} from "../../utils/decorators/service";
 import { PingService } from "../ping/ping.service";
 
@@ -9,8 +10,8 @@ export class MetricsService {
 
     async getMetrics(): Promise<string> {
         const pings = this.pingService.getLastPingData();
-        if(!pings) {
-            throw new Error('Ping data isn\'t ready yet');
+        if(!pings.length) {
+            throw Boom.tooEarly('Ping data isn\'t ready yet');
         }
 
         return `# HELP ping_latency_min Min latency to chosen host in milliseconds
