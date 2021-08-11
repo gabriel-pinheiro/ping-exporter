@@ -1,16 +1,16 @@
 import {IRouter} from "./utils/router";
 import {Provider} from "./utils/decorators/provider";
-import {CatRouter} from "./api/cat/cat.router";
+import {MetricsRouter} from "./api/metrics/metrics.router";
 
 @Provider()
 export class MainRouter implements IRouter {
     constructor(
-        private readonly catRouter: CatRouter,
+        private readonly metricsRouter: MetricsRouter,
     ) { }
 
     async getRoutes() {
         const routes = await Promise.all([
-            this.catRouter.getRoutes(),
+            this.metricsRouter.getRoutes(),
         ]);
 
         return routes.flat();

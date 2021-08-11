@@ -1,17 +1,17 @@
 import {Provider} from "../../utils/decorators/provider";
 import {IRouter} from "../../utils/router";
-import {CatController} from "./cat.controller";
+import {MetricsController} from "./metrics.controller";
 
 @Provider()
-export class CatRouter implements IRouter{
+export class MetricsRouter implements IRouter{
     constructor(
-        private readonly controller: CatController,
+        private readonly controller: MetricsController,
     ) { }
 
     async getRoutes() {
         return [{
             method: 'GET',
-            path: '/cats',
+            path: '/metrics',
             handler: this.controller.listAll.bind(this.controller),
         }];
     }
