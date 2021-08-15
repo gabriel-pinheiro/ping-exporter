@@ -1,0 +1,20 @@
+ping-exporter:
+  image: gabrielctpinheiro/ping-exporter:latest
+  container_name: ping-exporter
+  restart: unless-stopped
+  ports:
+    - 9862:9862
+  environment:
+    # Interface to bind the server
+    - SERVER_HOST=0.0.0.0
+    # Port to listen
+    - SERVER_PORT=9862
+
+    # Hosts to monitor
+    - PING_HOSTS=["1.1.1.1", "8.8.8.8"]
+    # Amount of ICMP packets to send when no loss is detected
+    - PING_SHORT-COUNT=5
+    # Amount of ICMP packets to send when partial loss is detected
+    - PING_LONG-COUNT=15
+    # Seconds to wait between probing the hosts (recommended: 1.5 * (PING_SHORT-COUNT + PING_LONG-COUNT) - 1)
+    - PING_INTERVAL=29
