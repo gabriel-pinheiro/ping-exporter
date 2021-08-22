@@ -39,6 +39,8 @@ You can set the following environment variables to customize ping-exporter:
 SERVER_HOST=0.0.0.0
 # Port to listen
 SERVER_PORT=9862
+# Name to add to labels (used to differenciate when there are multiple instances pinging the same host)
+SERVER_NAME=node01
 
 # Hosts to monitor
 PING_HOSTS=["1.1.1.1", "8.8.8.8"]
@@ -69,7 +71,7 @@ Where `PING_EXPORTER_HOST` is the hostname in which ping-exporter is running.
 
 - **Type:** gauge
 
-- **Labels:** host
+- **Labels:** `host`, `name`
 
 RTT (round time trip) min, average and max latency.
 
@@ -80,11 +82,14 @@ ping_latency_avg
 ```promql
 ping_latency_avg{host="1.1.1.1"}
 ```
+```promql
+ping_latency_avg{name="node01"}
+```
 ### `ping_loss`
 
 - **Type:** gauge
 
-- **Labels:** host
+- **Labels:** `host`, `name`
 
 Packet loss percentage
 
@@ -95,4 +100,6 @@ ping_loss
 ```promql
 ping_loss{host="1.1.1.1"}
 ```
-
+```promql
+ping_loss{name="node01"}
+```
